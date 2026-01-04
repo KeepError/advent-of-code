@@ -9,4 +9,4 @@ EXAMPLE_INPUT = """
 
 
 def test_day_3():
-    assert solve_day_3(EXAMPLE_INPUT) == 357
+    assert solve_day_3(EXAMPLE_INPUT) == 3121910778619
