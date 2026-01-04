@@ -1,0 +1,12 @@
+from y2025.day3.day3 import solve_day_3
+
+EXAMPLE_INPUT = """
+987654321111111
+811111111111119
+234234234234278
+818181911112111
+"""
+
+
+def test_day_3():
+    assert solve_day_3(EXAMPLE_INPUT) == 357
