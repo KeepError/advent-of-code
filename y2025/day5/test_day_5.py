@@ -1,6 +1,7 @@
 from y2025.day5.day5 import (
     get_fresh_ingredients_and_available_ingredients_from_input,
     solve_day_5_part_1,
+    solve_day_5_part_2,
 )
 
 EXAMPLE_INPUT = """
@@ -20,7 +21,7 @@ EXAMPLE_INPUT = """
 
 def test_day_5():
     assert solve_day_5_part_1(EXAMPLE_INPUT) == 3
-    # assert solve_day_5_part_2(EXAMPLE_INPUT) == 43
+    assert solve_day_5_part_2(EXAMPLE_INPUT) == 14
 
     assert get_fresh_ingredients_and_available_ingredients_from_input(
         EXAMPLE_INPUT

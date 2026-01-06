@@ -13,7 +13,18 @@ def solve_day_5_part_1(input: str) -> int:
 
 
 def solve_day_5_part_2(input: str) -> int:
-    return 0
+    fresh_ingredient_ranges, available_ingredients = (
+        get_fresh_ingredients_and_available_ingredients_from_input(input)
+    )
+    fresh_ingredient_ranges.sort(key=lambda ingredient_range: ingredient_range[0])
+
+    result = 0
+    max_stop = -1
+    for start, stop in fresh_ingredient_ranges:
+        start = max(start, max_stop + 1)
+        result += max(0, stop - start + 1)
+        max_stop = max(max_stop, stop)
+    return result
 
 
 def get_fresh_ingredients_and_available_ingredients_from_input(
