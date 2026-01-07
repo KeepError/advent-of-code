@@ -14,11 +14,11 @@ EXAMPLE_INPUT = """
 
 def test_day_6():
     assert solve_day_6_part_1(EXAMPLE_INPUT) == 4277556
-    assert solve_day_6_part_2(EXAMPLE_INPUT) == 0
+    assert solve_day_6_part_2(EXAMPLE_INPUT) == 3263827
 
     assert get_operation_columns(EXAMPLE_INPUT) == [
-        ([123, 45, 6], "*"),
-        ([328, 64, 98], "+"),
-        ([51, 387, 215], "*"),
-        ([64, 23, 314], "+"),
+        ["123", " 45", "  6", "*  "],
+        ["328", "64 ", "98 ", "+  "],
+        [" 51", "387", "215", "*  "],
+        ["64 ", "23 ", "314", "+  "],
     ]
