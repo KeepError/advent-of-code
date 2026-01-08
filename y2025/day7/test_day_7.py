@@ -25,4 +25,4 @@ EXAMPLE_INPUT = """
 
 def test_day_7():
     assert solve_day_7_part_1(EXAMPLE_INPUT) == 21
-    assert solve_day_7_part_2(EXAMPLE_INPUT) == 0
+    assert solve_day_7_part_2(EXAMPLE_INPUT) == 40
