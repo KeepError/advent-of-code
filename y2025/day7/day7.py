@@ -30,20 +30,16 @@ def solve_day_7_part_2(input: str) -> int:
     beam_timelines[initial_beam] = 1
 
     for line in lines[1:]:
-        new_beam_timelines: dict[int, int] = {}
-        for beam_timeline in beam_timelines:
+        for beam_timeline in beam_timelines.copy():
             if line[beam_timeline] != "^":
-                add_beam_timeline(
-                    new_beam_timelines, beam_timeline, beam_timelines[beam_timeline]
-                )
                 continue
             add_beam_timeline(
-                new_beam_timelines, beam_timeline - 1, beam_timelines[beam_timeline]
+                beam_timelines, beam_timeline - 1, beam_timelines[beam_timeline]
             )
             add_beam_timeline(
-                new_beam_timelines, beam_timeline + 1, beam_timelines[beam_timeline]
+                beam_timelines, beam_timeline + 1, beam_timelines[beam_timeline]
             )
-        beam_timelines = new_beam_timelines
+            beam_timelines.pop(beam_timeline)
 
     return sum(beam_timelines.values())
 
