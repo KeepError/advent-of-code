@@ -4,23 +4,14 @@ import math
 def solve_day_8_part_1(connections: int, input: str) -> int:
     junction_boxes = get_junction_boxes(input)
 
-    distances: dict[tuple[int, int], float] = {}
-    for jb_i in range(len(junction_boxes)):
-        for jb_j in range(len(junction_boxes)):
-            if jb_i >= jb_j:
-                continue
-            distances[(jb_i, jb_j)] = get_junction_boxes_distance(
-                junction_boxes[jb_i], junction_boxes[jb_j]
-            )
-
-    sorted_junction_boxes = sorted(
-        distances.keys(), key=lambda dist_key: distances[dist_key]
+    sorted_junction_boxes_indices_distances = (
+        get_sorted_junction_boxes_indices_distances(junction_boxes)
     )
 
     circuits: dict[int, set[int]] = {
         jb_i: {jb_i} for jb_i in range(len(junction_boxes))
     }
-    for jb_i, jb_j in sorted_junction_boxes[:connections]:
+    for jb_i, jb_j in sorted_junction_boxes_indices_distances[:connections]:
         jbs_to_update = tuple(circuits[jb_j])
         circuits[jb_i].update(circuits[jb_j])
         for jb in jbs_to_update:
@@ -44,6 +35,23 @@ def solve_day_8_part_1(connections: int, input: str) -> int:
 
 
 def solve_day_8_part_2(input: str) -> int:
+    junction_boxes = get_junction_boxes(input)
+
+    sorted_junction_boxes_indices_distances = (
+        get_sorted_junction_boxes_indices_distances(junction_boxes)
+    )
+
+    circuits: dict[int, set[int]] = {
+        jb_i: {jb_i} for jb_i in range(len(junction_boxes))
+    }
+    for jb_i, jb_j in sorted_junction_boxes_indices_distances:
+        jbs_to_update = tuple(circuits[jb_j])
+        circuits[jb_i].update(circuits[jb_j])
+        for jb in jbs_to_update:
+            circuits[jb] = circuits[jb_i]
+
+        if len(circuits[jb_i]) == len(junction_boxes):
+            return junction_boxes[jb_i][0] * junction_boxes[jb_j][0]
     return 0
 
 
@@ -68,6 +76,25 @@ def get_junction_boxes_distance(
         + (junction_box_1[1] - junction_box_2[1]) ** 2
         + (junction_box_1[2] - junction_box_2[2]) ** 2
     )
+
+
+def get_sorted_junction_boxes_indices_distances(
+    junction_boxes: list[junction_box_type],
+) -> list[tuple[int, int]]:
+    distances: dict[tuple[int, int], float] = {}
+    for jb_i in range(len(junction_boxes)):
+        for jb_j in range(len(junction_boxes)):
+            if jb_i >= jb_j:
+                continue
+            distances[(jb_i, jb_j)] = get_junction_boxes_distance(
+                junction_boxes[jb_i], junction_boxes[jb_j]
+            )
+
+    sorted_junction_boxes = sorted(
+        distances.keys(), key=lambda dist_key: distances[dist_key]
+    )
+
+    return sorted_junction_boxes
 
 
 if __name__ == "__main__":
